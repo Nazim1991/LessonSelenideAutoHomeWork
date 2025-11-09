@@ -6,12 +6,9 @@ import java.time.format.DateTimeFormatter;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
-
-import static com.codeborne.selenide.Selenide.*;
 
 public class AppCardDeliveryTaskOneTest {
 
@@ -29,14 +26,14 @@ public class AppCardDeliveryTaskOneTest {
     public void shouldBeSuccessfullyCompleted() {
         $("[data-test-id='city'] input").setValue("Рязань");
         String planningDate = generateDate(4, "dd.MM.yyyy");
-        $("[date-test-id='date'] input")
+        $("[data-test-id='date'] input")
                 .press(Keys.chord(Keys.SHIFT,Keys.HOME), Keys.DELETE)
                 .setValue(planningDate);
-        $("[data-test-id='name'] input").setValue("Иванов-Иван_Иванович");
+        $("[data-test-id='name'] input").setValue("Иваныч-Иванычев Иван");
         $("[data-test-id='phone'] input").setValue("+79022090442");
         $("[data-test-id='agreement']").click();
         $("button.button").click();
-        $("notification__content")
+        $(".notification__content")
                 .should(Condition.visible, Duration.ofSeconds(15))
                 .should(Condition.text("Встреча успешно забронирована на " + planningDate));
     }
